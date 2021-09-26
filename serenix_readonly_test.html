@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+The MIT License
+
+Copyright 2021 Marc KAMGA Olivier <kamga_marco@yahoo.com;mkamga.olivier@gmail.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<html>
+    <head>
+        <title>Read only select</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="serenix_readonly.js"></script>
+        <style type="text/css">
+            td, td {
+                border:solid black 1px;
+            }
+            .command {
+                margin: 10px;
+            }
+            .read-only {
+                color:red;
+                font-weight: bold;
+            }
+            .editable {
+                color:green;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <table>
+            <tr><th>Input</th><th>Read only</th></tr>
+            <tr><td><input id="readonly-text-input" readonly></td><td>True</td></tr>
+            <tr><td><input id="true-readonly-text-input" readonly="true"></td><td>True</td></tr>
+            <tr><td><input id="false-readonly-text-input" readonly="false"></td><td>True</td></tr>
+            <tr><td><input id="editable-text-input"></td><td>False</td></tr>
+            </table>
+            <h3>Read only Select case:</h3>
+            <table>
+            <tr><th>Select</th><th>Read only</th></tr>
+            <tr><td><span>Case 1:&nbsp;</span><select id="bool">
+                <option value="true">True</option>
+                <option value="false" selected>False</option>
+                </select></td><td>True</td></tr>
+            <tr><td><span>Case 2:&nbsp;</span><select id="editable_bool">
+                <option value="true" selected>True</option>
+                <option value="false">False</option>
+            </select></td><td>False</td></tr>
+            </table>
+            <h3>Checkboxes:</h3>
+            <table>
+            <tr><th>Checkbox</th><th>Read only</th></tr>
+            <tr><td><span>Checkbox 1:&nbsp;</span><input id="checkbox1" type="checkbox" readonly checked></td><td>True</td></tr>
+            <tr><td><span>Checkbox 2:&nbsp;</span><input id="checkbox2" type="checkbox" checked></td><td>False</td></tr>
+            </table>
+            <h3>Read only radio group:</h3>
+            <table>
+            <tr><th>Select</th><th>Read only</th></tr>
+            <tr><td>Option A:&nbsp;<input type="radio" id="unchecked_radio" name="radio-group">
+            <br>Option B:&nbsp;<input type="radio" id="editable_radio" checked name="radio-group">
+            <br>Option C:&nbsp;<input type="radio" id="editable_checked_radio" checked name="radio-group"></td><td>True</td></tr>
+            </table>
+            <h3>Read only radio buttons</h3>
+            <table>
+            <tr><th>Radio</th><th>Read only</th></tr>
+            <tr><td>Free radio 1:&nbsp;<input type="radio" id="free"/></td><td>True</td></tr>
+            <tr><td>Free radio 2:&nbsp;<input type="radio" id="free2"/></td><td>False</td></tr>
+            </table>
+            <table>
+            <tr><th>Input</th><th>Read only</th></tr>
+            <tr><td>Native read only property and not toggleable: <input id="native-readonly" value='read-only text' readonly/></td><td>True</td></tr>
+            <tr><td>Read function call case: <input id="reaonly_input" value='readonly("#reaonly_input", true)'/></td><td>True</td></tr>
+            <tr><td>Editable input: <input id="editable_input" value='Editable to toggle'/></td><td>False</td></tr>
+            </table>
+            <br><div class="command"><span id="toggle-button" style="display:inline-block;border:1px black solid;padding:10px;background:lightgray;border-radius: 10px;" id="toggle-buttom">Toggle</span></div>
+        </div>
+        <script type="text/javascript">
+            var input = document.getElementById('readonly-text-input');
+            console.log("\n'readonly-text-input' has attribute readonly : " + input.hasAttribute("readonly"));
+            console.log("input element with ID 'readonly-text-input' attribute readonly value : " + input.getAttribute("readonly"));
+            
+            input = document.getElementById('true-readonly-text-input');
+            console.log("\n'true-readonly-text-input' has attribute readonly : " + input.hasAttribute("readonly"));
+            console.log("input element with ID 'true-readonly-text-input' attribute readonly value : " + input.getAttribute("readonly"));
+            
+            input = document.getElementById('false-readonly-text-input');
+            console.log("\n'false-readonly-text-input' has attribute readonly : " + input.hasAttribute("readonly")
+            + "\n\ninput element with ID 'false-readonly-text-input' attribute readonly value : " + input.getAttribute("readonly")
+            + "\n\n'false-readonly-text-input' readOnly property value: " + input.readOnly );
+            
+            input = document.getElementById('editable-text-input');
+            console.log("'editable-text-input' has attribute readonly : " + input.hasAttribute("readonly"));
+            console.log("input element with ID 'readonly-text-input' attribute readonly value : " + input.getAttribute("readonly"));
+            
+            var c = document.getElementById("checkbox1");
+            console.log("input element with ID 'checkbox1' has attribute readonly : " + c.hasAttribute("readonly"));
+            console.log("input element with ID 'checkbox1' attribute readonly value : " + c.getAttribute("readonly"));
+            c = document.getElementById("checkbox2");
+            console.log("input element with ID 'checkbox2' has attribute readonly : " + c.hasAttribute("readonly"));
+            console.log("input element with ID 'checkbox2' attribute readonly value : " + c.getAttribute("readonly"));
+            console.log("checkbox2 'readOnly' property before readonly function call:" + c.readOnly);
+            
+            //Make the elements read-only
+            readonly('#bool, #checkbox1, #checkbox2, #free, [name="radio-group"]', true);
+            //Make the element read-only
+            readonly("#reaonly_input", true);
+            /**
+             * @private
+             * Toggles the readonly behaviours of elements with the following selector values:
+             * #bool
+             * #checkbox1
+             * #checkbox2
+             * #checkbox3
+             * #free
+             * #free2
+             * [name="radio-group"]
+             * #checkbox3
+             * #readonly-text-input
+             * #true-readonly-text-input
+             * #false-readonly-text-input
+             * #editable-text-input
+             * #reaonly_input
+             * #editable_bool
+             * #editable_input'
+             */
+            function toggle() {
+                var el, val, p, status, p2;
+                    inputs = document.querySelectorAll('#bool, #checkbox1, #checkbox2, #checkbox3, #free, #free2, [name="radio-group"], #checkbox3, #readonly-text-input, #true-readonly-text-input, #false-readonly-text-input, #editable-text-input, #reaonly_input, #editable_bool, #editable_input');
+                for (var i = 0, n = inputs.length; i < n; i++) {
+                    el = inputs[i];
+                    readonly(el, val = readonly.nativeSupportsReadOnly(el) ? !el.readOnly : !el.__readOnly__);
+                    p = el.parentNode;
+                    if ((p.nodeName||p.tagName).toLowerCase() === 'td') {
+                        var tr = p.parentElement;
+                        status = tr.children[tr.children.length - 1];
+                        var ro = status.innerHTML === 'True';
+                        status.innerHTML = ro ? 'False' : 'True';
+                        status.setAttribute('class', ro ? 'editable' : 'read-only');
+                    } else if (status=el.status) {
+                        var s = status.innerHTML;
+                        var ro = s === "editable (not read-only)";
+                        el.status.innerHTML =  ro ? "read-only (not editable)" : "editable (not read-only)";
+                        status.setAttribute('class', ro ? 'read-only' : 'editable');
+                    }
+                }
+            }
+            //bind toggle function to click event of the button
+            document.getElementById("toggle-button").addEventListener('click', toggle);
+            var chk = document.createElement('input');
+            chk.type = 'checkbox';
+            chk.id = "checkbox3";
+            var btn = document.getElementById("toggle-button");
+            btn.parentElement.parentElement.insertBefore(chk, btn.parentElement);
+            var span = document.createElement('span');
+            span.id = "checkbox3-text";
+            span.innerHTML = "I am&nbsp;";
+            btn.parentElement.parentElement.insertBefore(span, btn.parentElement);
+            var span = document.createElement('span');
+            span.id = "checkbox3-status-text";
+            span.innerHTML = "editable (not read-only)";
+            btn.parentElement.parentElement.insertBefore(span, btn.parentElement);
+            console.log("chk has attribute readonly : " + chk.hasAttribute("readonly"));
+            chk.status = span;
+            c = document.getElementById("checkbox2");
+            console.log("checkbox2 'readOnly' property after readonly function call:" + c.readOnly);
+            console.log("readonly(c, false) execution");
+            readonly(c, false);
+            console.log("checkbox2 'readOnly' property new value:" + c.readOnly);
+            
+        </script>
+    </body>
+</html>
